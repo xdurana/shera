@@ -32,6 +32,6 @@ RUN rm wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
 
 RUN apt-get install -y locales locales-all
 
-RUN apt install pdftk
+RUN apt-get install pdftk
 
 CMD ["/bin/bash"]
