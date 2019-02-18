@@ -26,14 +26,18 @@ def shera(log_level, async):
 @click.option('--reports', type=click.Path(exists=True))
 @click.option('--template', type=click.Path(exists=True))
 @click.option('--output', type=click.Path(exists=True))
-def deliver_reports(contracts, reports, template, output):
+@click.option('--source', default='CSVSource', type=click.STRING)
+def deliver_reports(contracts, reports, template, output, source):
     logger = logging.getLogger('shera')
     logger.info('Enqueuing reports to be delivered')
     tasks.deliver_reports(
         contracts,
         reports,
         template,
-        output, bucket=25)
+        output,
+        source,
+        bucket=25
+    )
 
 if __name__ == '__main__':
     shera(obj={})

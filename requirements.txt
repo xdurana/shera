@@ -3,3 +3,5 @@ rq
 redis
 pdfkit
 erppeek
+mako
+pyyaml

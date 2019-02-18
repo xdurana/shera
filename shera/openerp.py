@@ -1,6 +1,7 @@
 import os
 import erppeek
 
+from source import Source
 
 def setup_peek(**kwargs):
     config = {
@@ -12,12 +13,12 @@ def setup_peek(**kwargs):
     config.update(kwargs)
     return erppeek.Client(**config)
 
-def setup_pool():
-    return OpenERP() 
-
-class OpenERP(object):
+class OpenERP(Source):
     def __init__(self):
         self.O = setup_peek()
+
+    def setup_pool():
+        return OpenERP() 
 
     def send_reports(self, reports):
         pol_obj = self.O.model('giscedata.polissa')

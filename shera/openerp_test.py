@@ -4,16 +4,18 @@ import os
 import inspect
 import yaml
 
-def setup_pool():
-    return OpenERPMockup()
+from source import Source
 
 def load_yaml(path):
     _yaml = yaml.load(open(path, 'r'))
     return _yaml if _yaml else []
 
-class OpenERPMockup(object):
+class OpenERPMockup(Source):
     def __init__(self):
         pass
+
+    def setup_pool():
+        return OpenERPMockup()
 
     def send_reports(self, reports):
         #global sent_reports
