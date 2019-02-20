@@ -25,13 +25,12 @@ def deliver_reports(contracts_path, reports_path,
     popper = Popper(reports)
     pops = popper.pop(bucket)
     while pops:
-        j = push_reports.delay(pops, template, output_path, source_class)
+        j = push_reports(pops, template, output_path, source_class)
         logger.info("Job id:%s | %s/%s" % (
             j.id, len(pops), len(popper.items))
         )
         pops = popper.pop(bucket)
 
-@job(setup_queue(name='reports'), connection=setup_redis(), timeout=3600)
 def push_reports(reports, template, output, source_class):
     O = source_class.setup_pool()
     start = datetime.now()
