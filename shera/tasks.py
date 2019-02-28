@@ -36,7 +36,7 @@ def push_reports(reports, template, output, source_class):
     start = datetime.now()
     try:
         render_reports(O, reports, template, output)
-        O.send_reports(reports)
+        # O.send_reports(reports)
     except Exception as e:
         logger.error('Report push failed: %s' % str(e))
     stop = datetime.now()
