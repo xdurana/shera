@@ -60,20 +60,18 @@ def add_custom(original_pdf, custom_pdf, output_pdf):
         os.rename(output_pdf_aux, output_pdf)
 
 def customize(report, template_name, path_aux, path_output):
-    fields = ['name', 'surname' ,'address', 'cups', 'tariff', 'power', 'lang']
-    customer = {field:report[field] for field in fields}
     result = Template(
-        read_mako_template(template_name), 
+        read_mako_template(template_name),
         input_encoding=ENCODING).render(
-            customer = customer,
-            _ = _
+            customer=report,
+            _=_
         )
 
-    report_name = report['contract_name']
+    report_name = report['contract_id']
     write_html(path_aux, report_name,  result)
     custom_pdf = write_pdf(path_aux, report_name)
     original_pdf = report['report']
     filename = os.path.basename(report['report'])
-    output_pdf = os.path.join(path_output, filename) 
+    output_pdf = os.path.join(path_output, filename)
     add_custom(original_pdf, custom_pdf, output_pdf)
     return output_pdf

@@ -20,12 +20,6 @@
 <br>${customer['city']}
 <br>${customer['province']}
 <br>
-% if customer['lang'] == 'ca_ES':
- Pot&egrave;ncia
-% else:
- Potencia
-% endif
-${customer['power']} kW
 </span>
 </div>
 </body>
