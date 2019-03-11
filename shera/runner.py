@@ -8,6 +8,7 @@ import click
 import tasks
 from utils import setup_logging
 
+
 @click.group()
 @click.option('--log-level', default='info')
 @click.option('--async/--no-async', default=True)
@@ -21,13 +22,15 @@ def shera(log_level, async):
     logger.info('Running shera in %s mode' % MODE[async])
     os.environ['RQ_ASYNC'] = str(async)
 
+
 @shera.command()
 @click.option('--contracts', type=click.Path(exists=True))
 @click.option('--reports', type=click.Path(exists=True))
 @click.option('--template', type=click.Path(exists=True))
 @click.option('--output', type=click.Path(exists=True))
 @click.option('--source', default='CSVSource', type=click.STRING)
-def deliver_reports(contracts, reports, template, output, source):
+@click.option('--data', default='data/test_from_csv/contracts.csv', type=click.STRING)
+def deliver_reports(contracts, reports, template, output, source, data):
     logger = logging.getLogger('shera')
     logger.info('Enqueuing reports to be delivered')
     tasks.deliver_reports(
@@ -36,8 +39,10 @@ def deliver_reports(contracts, reports, template, output, source):
         template,
         output,
         source,
+        data,
         bucket=25
     )
+
 
 if __name__ == '__main__':
     shera(obj={})

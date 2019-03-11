@@ -12,7 +12,7 @@ from sources import *
 logger = logging.getLogger('shera')
 
 
-def deliver_reports(contracts_path, reports_path, template, output_path, source, bucket=500):
+def deliver_reports(contracts_path, reports_path, template, output_path, source, data, bucket=500):
     try:
         source_class = eval(source)
     except NameError:
@@ -22,12 +22,12 @@ def deliver_reports(contracts_path, reports_path, template, output_path, source,
     popper = Popper(reports)
     pops = popper.pop(bucket)
     while pops:
-        push_reports(pops, template, output_path, source_class)
+        push_reports(pops, template, output_path, source_class, data)
         pops = popper.pop(bucket)
 
 
-def push_reports(reports, template, output, source_class):
-    origin = source_class.setup_pool()
+def push_reports(reports, template, output, source_class, data):
+    origin = source_class.setup_pool(data)
     start = datetime.now()
     try:
         render_reports(origin, reports, template, output)

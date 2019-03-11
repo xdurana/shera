@@ -3,8 +3,8 @@ from source import Source
 
 
 class CSVSource(Source):
-    def __init__(self):
-        with open('data/test_from_csv/contracts.csv', mode='r') as infile:
+    def __init__(self, data):
+        with open(data, mode='r') as infile:
             reader = csv.reader(infile, delimiter=';')
             self._contracts = {
                 rows[0]: {
@@ -21,8 +21,8 @@ class CSVSource(Source):
         return self._contracts
 
     @staticmethod
-    def setup_pool():
-        return CSVSource()
+    def setup_pool(data):
+        return CSVSource(data)
 
     def send_reports(self, reports):
         pass
