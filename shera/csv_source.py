@@ -1,11 +1,15 @@
 import csv
 from source import Source
 
+def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):
+    csv_reader = csv.reader(utf8_data, dialect=dialect, **kwargs)
+    for row in csv_reader:
+        yield [unicode(cell, 'utf-8') for cell in row]
 
 class CSVSource(Source):
     def __init__(self, data):
         with open(data, mode='r') as infile:
-            reader = csv.reader(infile, delimiter=';')
+            reader = unicode_csv_reader(infile, delimiter=';')
             self._contracts = {
                 rows[0]: {
                     'CUPS': rows[0],
