@@ -35,7 +35,7 @@ def render_reports(O, reports, template_name, output):
     for report_idx, report in enumerate(reports):
         partner_data = None
         try:
-            partner_data = O.get_partner_data(report['CUPS'])
+            partner_data = O.get_partner_data(report['contract_id'])
         except Exception:
             partner_data = None
         if not partner_data:

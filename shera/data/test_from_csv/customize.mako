@@ -3,8 +3,8 @@
 <style>
 .absolute {
   position: absolute;
-  top: 120px;
-  left: 55px;
+  top: 160px;
+  left: 120px;
   right: 0;
   width: 600px;
   height: 100px;
@@ -15,10 +15,9 @@
 <span style="font-weight: bold">
 <br>
 </span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${customer['CUPS']}
-<br>${customer['address']}
-<br>${customer['city']}
-<br>${customer['province']}
+<br>${customer['field_2']}
+<br>
+<br>${customer['field_3']}
 <br>
 </span>
 </div>

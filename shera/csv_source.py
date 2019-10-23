@@ -1,10 +1,12 @@
 import csv
 from source import Source
 
+
 def unicode_csv_reader(utf8_data, dialect=csv.excel, **kwargs):
     csv_reader = csv.reader(utf8_data, dialect=dialect, **kwargs)
     for row in csv_reader:
         yield [unicode(cell, 'utf-8') for cell in row]
+
 
 class CSVSource(Source):
     def __init__(self, data):
@@ -12,11 +14,7 @@ class CSVSource(Source):
             reader = unicode_csv_reader(infile, delimiter=';')
             self._contracts = {
                 rows[0]: {
-                    'CUPS': rows[0],
-                    'address': rows[1],
-                    'city': rows[2],
-                    'province': rows[3],
-                    'language': rows[4]
+                    'field_%s' % str(k+1): v for k, v in enumerate(rows)
                 } for rows in reader
             }
 
@@ -31,5 +29,5 @@ class CSVSource(Source):
     def send_reports(self, reports):
         pass
 
-    def get_partner_data(self, cups):
-        return self.contracts[cups]
+    def get_partner_data(self, contract_id):
+        return self.contracts[contract_id]
